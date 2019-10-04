@@ -14,21 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.tkp.camunda;
+package nl.kooi.camunda;
 
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import javax.ws.rs.FormParam;
 import java.util.logging.Logger;
 
-public class ProcessRequestDelegate implements JavaDelegate {
+public class AutomatischeVerwerkingDelegate implements JavaDelegate {
 
-  private final static Logger LOGGER = Logger.getLogger("LOAN-REQUESTS");
+    private final static Logger LOGGER = Logger.getLogger("AutomatischeVerwerkingsProces");
 
-  public void execute(DelegateExecution execution) throws Exception {
-    LOGGER.info("Processing request by '"+execution.getVariable("customerId")+"'...");
+    public void execute(DelegateExecution execution) {
+        try {
 
-  }
+            LOGGER.info("automatische verwerking is gestart");
 
+//            throw new Exception("Er ging iets fout"); zet deze code weer aan om in de "foutafhandelingstak" te komen
+    } catch (Exception e) {
+        throw new BpmnError("Er ging iets fout");
+    }
+    }
 }

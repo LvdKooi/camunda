@@ -1,4 +1,4 @@
-package nl.tkp.camunda;
+package nl.kooi.camunda;
 
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.engine.RuntimeService;
@@ -23,7 +23,7 @@ public class CamundaApplication {
 
 	@EventListener
 	private void processPostDeploy(PostDeployEvent event) {
-		runtimeService.startProcessInstanceByKey("approve-loan");
+		runtimeService.startProcessInstanceByKey("automatischeverwerking");
 	}
 
 }
