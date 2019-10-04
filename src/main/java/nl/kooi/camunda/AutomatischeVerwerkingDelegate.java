@@ -30,10 +30,13 @@ public class AutomatischeVerwerkingDelegate implements JavaDelegate {
         try {
 
             LOGGER.info("automatische verwerking is gestart");
+            if (execution.getVariable("customerId") == null || execution.getVariable("amount") == null) {
 
-//            throw new Exception("Er ging iets fout"); zet deze code weer aan om in de "foutafhandelingstak" te komen
-    } catch (Exception e) {
-        throw new BpmnError("Er ging iets fout");
-    }
+                throw new Exception("Er ging iets fout");
+            }
+
+        } catch (Exception e) {
+            throw new BpmnError("customerId of amount is niet gevuld");
+        }
     }
 }
