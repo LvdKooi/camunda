@@ -24,17 +24,21 @@ import java.util.logging.Logger;
 
 public class AutomatischeVerwerkingDelegate implements JavaDelegate {
 
+
     private final static Logger LOGGER = Logger.getLogger("AutomatischeVerwerkingsProces");
 
     public void execute(DelegateExecution execution) {
-        try {
 
+        String customerId = execution.getVariable("customerId") == null ? null : execution.getVariable("customerId").toString();
+        String amount = execution.getVariable("amount") == null ? null : execution.getVariable("amount").toString();
+
+        try {
             LOGGER.info("automatische verwerking is gestart");
             if (execution.getVariable("customerId") == null || execution.getVariable("amount") == null) {
-
                 throw new Exception("Er ging iets fout");
+            } else {
+                LOGGER.info("automatische verwerking voor customerId " + customerId + " en amount " + amount);
             }
-
         } catch (Exception e) {
             throw new BpmnError("customerId of amount is niet gevuld");
         }
