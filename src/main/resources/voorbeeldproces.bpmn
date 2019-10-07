@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1nsvsit" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
+  <bpmn:process id="automatischeverwerking" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0dxgtxt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_0znm6he">
+      <bpmn:incoming>SequenceFlow_14n7xwa</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1tkur44</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_14n7xwa" sourceRef="Task_1wy6if1" targetRef="EndEvent_0znm6he" />
+    <bpmn:sequenceFlow id="SequenceFlow_1tkur44" sourceRef="Task_143ykgs" targetRef="EndEvent_0znm6he" />
+    <bpmn:boundaryEvent id="BoundaryEvent_1mv9dtx" attachedToRef="Task_1wy6if1">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="nl.kooi.camunda.Foutafhandeling" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_1b2vk78</bpmn:outgoing>
+      <bpmn:errorEventDefinition errorRef="Error_0d86c5r" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1b2vk78" sourceRef="BoundaryEvent_1mv9dtx" targetRef="Task_143ykgs" />
+    <bpmn:userTask id="Task_0amhlru" name="Controle" camunda:formKey="embedded:app:forms/request-loan.html">
+      <bpmn:incoming>SequenceFlow_0dxgtxt</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1m6qxi8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1m6qxi8" sourceRef="Task_0amhlru" targetRef="Task_1wy6if1" />
+    <bpmn:sequenceFlow id="SequenceFlow_0dxgtxt" sourceRef="StartEvent_1" targetRef="Task_0amhlru" />
+    <bpmn:serviceTask id="Task_1wy6if1" name="Automatische verwerking" camunda:class="nl.kooi.camunda.AutomatischeVerwerkingDelegate">
+      <bpmn:incoming>SequenceFlow_1m6qxi8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14n7xwa</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_143ykgs" name="Handmatig doordrukken">
+      <bpmn:incoming>SequenceFlow_1b2vk78</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tkur44</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:error id="Error_0d86c5r" name="Error_1hhgk7k" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="automatischeverwerking">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="142" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0znm6he_di" bpmnElement="EndEvent_0znm6he">
+        <dc:Bounds x="852" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14n7xwa_di" bpmnElement="SequenceFlow_14n7xwa">
+        <di:waypoint x="630" y="120" />
+        <di:waypoint x="852" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tkur44_di" bpmnElement="SequenceFlow_1tkur44">
+        <di:waypoint x="630" y="320" />
+        <di:waypoint x="720" y="320" />
+        <di:waypoint x="720" y="120" />
+        <di:waypoint x="852" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_0ses37e_di" bpmnElement="BoundaryEvent_1mv9dtx">
+        <dc:Bounds x="592" y="142" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1b2vk78_di" bpmnElement="SequenceFlow_1b2vk78">
+        <di:waypoint x="610" y="178" />
+        <di:waypoint x="610" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1aw3b79_di" bpmnElement="Task_0amhlru">
+        <dc:Bounds x="310" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1m6qxi8_di" bpmnElement="SequenceFlow_1m6qxi8">
+        <di:waypoint x="410" y="120" />
+        <di:waypoint x="530" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0dxgtxt_di" bpmnElement="SequenceFlow_0dxgtxt">
+        <di:waypoint x="178" y="120" />
+        <di:waypoint x="310" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0g41559_di" bpmnElement="Task_1wy6if1">
+        <dc:Bounds x="530" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_07vrfoc_di" bpmnElement="Task_143ykgs">
+        <dc:Bounds x="530" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
